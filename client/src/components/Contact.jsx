@@ -68,17 +68,15 @@ export default function Contact({ data = {}, heroSocials = [] }) {
           </motion.h2>
         </div>
 
-        {/* Finale: Grid with image if present, or typography */}
-        <div className={hasImage ? "grid lg:grid-cols-12 gap-12 lg:gap-16 items-center mb-16 sm:mb-24" : "mb-16 sm:mb-24"}>
-          <div className={hasImage ? "lg:col-span-7" : "max-w-5xl"}>
+        {/* Finale: Grid always present for text (7 cols) and image/placeholder (5 cols) */}
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center mb-16 sm:mb-24">
+          <div className="lg:col-span-7">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className={`font-display font-bold tracking-tight text-white leading-[1.05] ${
-                hasImage ? "text-4xl sm:text-5xl lg:text-7xl" : "text-4xl sm:text-6xl md:text-7xl lg:text-8xl"
-              }`}
+              className="font-display font-bold tracking-tight text-white leading-[1.05] text-4xl sm:text-5xl lg:text-7xl"
             >
               <div>{data.heading || "LET'S BUILD SOMETHING INTERESTING."}</div>
             </motion.div>
@@ -128,15 +126,15 @@ export default function Contact({ data = {}, heroSocials = [] }) {
             </motion.figure>
           </div>
 
-          {/* Optional Contact Image Column */}
-          {hasImage && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-              className="lg:col-span-5 flex justify-center group"
-            >
+          {/* Contact Image Column (with Placeholder fallback) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="lg:col-span-5 flex justify-center group"
+          >
+            {hasImage ? (
               <motion.div
                 whileHover={{ y: -6, scale: 1.02 }}
                 transition={{ duration: 0.4 }}
@@ -146,8 +144,20 @@ export default function Contact({ data = {}, heroSocials = [] }) {
                   <img src={data.image} alt="Contact" className="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
                 </div>
               </motion.div>
-            </motion.div>
-          )}
+            ) : (
+              <motion.div
+                whileHover={{ y: -6, scale: 1.02 }}
+                transition={{ duration: 0.4 }}
+                className="w-full max-w-xl aspect-[4/3] rounded-2xl overflow-hidden transition-all duration-500 flex items-center justify-center"
+              >
+                <div className="w-full h-full flex items-center justify-center opacity-40 group-hover:opacity-70 transition-opacity">
+                  <svg className="w-32 h-32 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                </div>
+              </motion.div>
+            )}
+          </motion.div>
         </div>
 
         {/* Message Form */}
