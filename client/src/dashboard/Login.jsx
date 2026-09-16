@@ -234,23 +234,6 @@ export default function Login() {
                 >
                   Bypass to Dashboard
                 </button>
-
-                <button
-                  type="button"
-                  onClick={async () => {
-                    setError('');
-                    try {
-                      const api = (await import('../api/axios')).default;
-                      await api.post('/auth/reset');
-                      await fetchStatus();
-                    } catch (err) {
-                      handleEnterLocal();
-                    }
-                  }}
-                  className="text-indigo-400 hover:text-indigo-300 transition-colors"
-                >
-                  Reset 2FA Setup
-                </button>
               </div>
             </form>
           </div>

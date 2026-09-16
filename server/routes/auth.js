@@ -158,19 +158,6 @@ router.post('/login-totp', async (req, res) => {
   }
 });
 
-// POST /api/auth/reset - emergency reset TOTP setup
-router.post('/reset', async (req, res) => {
-  try {
-    const user = await getOwner();
-    user.totpSecret = null;
-    user.tempTotpSecret = null;
-    user.isTotpSetup = false;
-    await user.save();
-    res.json({ success: true, message: 'TOTP 2FA reset successfully. Please set up a new authenticator key.' });
-  } catch (err) {
-    res.status(500).json({ message: 'Error resetting auth', error: err.message });
-  }
-});
 
 // GET /api/auth/verify - check stored token validity
 router.get('/verify', auth, (req, res) => {
