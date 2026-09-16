@@ -11,26 +11,12 @@ export function AuthProvider({ children }) {
     return res.data;
   };
 
-  const setupTotp = async (totpToken) => {
-    const res = await api.post('/auth/setup-totp', { token: totpToken });
+  const loginWithPassword = async (email, password) => {
+    const res = await api.post('/auth/login', { email, password });
     if (res.data.token) {
       localStorage.setItem('portfolio_admin_token', res.data.token);
       setToken(res.data.token);
     }
-    return res.data;
-  };
-
-  const loginWithTotp = async (totpToken) => {
-    const res = await api.post('/auth/login-totp', { token: totpToken });
-    if (res.data.token) {
-      localStorage.setItem('portfolio_admin_token', res.data.token);
-      setToken(res.data.token);
-    }
-    return res.data;
-  };
-
-  const regenerateQr = async () => {
-    const res = await api.post('/auth/regenerate-qr');
     return res.data;
   };
 
@@ -51,9 +37,7 @@ export function AuthProvider({ children }) {
         token,
         isAuthenticated: !!token,
         getAuthStatus,
-        setupTotp,
-        loginWithTotp,
-        regenerateQr,
+        loginWithPassword,
         loginLocally,
         logout,
       }}
