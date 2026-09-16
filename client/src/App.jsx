@@ -6,12 +6,14 @@ import Login from './dashboard/Login';
 import Dashboard from './dashboard/Dashboard';
 import ProtectedRoute from './dashboard/ProtectedRoute';
 import { ContentProvider } from './context/ContentContext';
+import SmoothScroll from './components/SmoothScroll';
 
 export default function App() {
   return (
-    <MotionConfig reducedMotion="never">
-      <Routes>
-        <Route
+    <SmoothScroll>
+      <MotionConfig reducedMotion="never">
+        <Routes>
+          <Route
           path="/"
           element={
             <ContentProvider>
@@ -29,6 +31,7 @@ export default function App() {
           }
         />
       </Routes>
-    </MotionConfig>
+      </MotionConfig>
+    </SmoothScroll>
   );
 }

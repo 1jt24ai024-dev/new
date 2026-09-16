@@ -140,9 +140,9 @@ export default function Contact({ data = {}, heroSocials = [] }) {
               <motion.div
                 whileHover={{ y: -6, scale: 1.02 }}
                 transition={{ duration: 0.4 }}
-                className="image-surface w-full max-w-sm aspect-[4/3] rounded-2xl overflow-hidden glass-panel border border-white/[0.1] group-hover:border-white/[0.25] p-2 shadow-xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.6)] transition-all duration-500"
+                className="image-surface w-full max-w-lg aspect-[4/3] rounded-2xl overflow-hidden shadow-xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.6)] transition-all duration-500"
               >
-                <div className="w-full h-full rounded-xl overflow-hidden bg-black/40">
+                <div className="w-full h-full rounded-xl overflow-hidden">
                   <img src={data.image} alt="Contact" className="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
                 </div>
               </motion.div>
