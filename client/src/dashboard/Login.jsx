@@ -226,15 +226,7 @@ export default function Login() {
                 {submitting ? 'VERIFYING…' : isSetup ? 'SIGN IN TO DASHBOARD' : 'ACTIVATE & CONTINUE'}
               </button>
 
-              <div className="flex items-center justify-between pt-2 border-t border-white/[0.08] mt-3 font-mono text-xs text-slate-400">
-                <button
-                  type="button"
-                  onClick={handleEnterLocal}
-                  className="hover:text-white transition-colors"
-                >
-                  Bypass to Dashboard
-                </button>
-              </div>
+
             </form>
           </div>
         )}
