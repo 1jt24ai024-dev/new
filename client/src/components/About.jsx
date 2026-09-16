@@ -35,12 +35,15 @@ export default function About({ data = {} }) {
 
   return (
     <section ref={sectionRef} id="about" className="relative isolate py-32 px-6 sm:px-10 border-t border-white/[0.04]">
-      <motion.div className="about-scroll-rail pointer-events-none absolute left-3 top-20 bottom-20 hidden w-px origin-top sm:block" style={reducedMotion ? undefined : { scaleY: signalScale }} aria-hidden="true" />
-      <div className="pointer-events-none absolute inset-0 opacity-55" aria-hidden="true">
-        <AeroShards backgroundColor="#050508" shardColor="#1D9BF0" accentColor="#67E8F9" placement="full" flow="stream" material="glass" detail="balanced" effect="none" scale={0.8} spread={0.72} depth={0.75} speed={0.35} spin={0.25} interaction="none" density={0.7} shardSize={0.8} turbulence={0.35} glow={0.7} bloom={0.25} grain={0.02} holdToGather={false} />
-      </div>
+      {/* Sticky wrapper for cinematic scroll reveal */}
+      <div className="relative" style={{ minHeight: '150vh' }}>
+        <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
+          <motion.div className="about-scroll-rail pointer-events-none absolute left-3 top-20 bottom-20 hidden w-px origin-top sm:block" style={reducedMotion ? undefined : { scaleY: signalScale }} aria-hidden="true" />
+          <div className="pointer-events-none absolute inset-0 opacity-55" aria-hidden="true">
+            <AeroShards backgroundColor="#050508" shardColor="#1D9BF0" accentColor="#67E8F9" placement="full" flow="stream" material="glass" detail="balanced" effect="none" scale={0.8} spread={0.72} depth={0.75} speed={0.35} spin={0.25} interaction="none" density={0.7} shardSize={0.8} turbulence={0.35} glow={0.7} bloom={0.25} grain={0.02} holdToGather={false} />
+          </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
+          <div className="max-w-7xl mx-auto w-full relative z-10">
         {/* Label */}
         <motion.div className="section-heading mb-14 sm:mb-20 flex items-center gap-4" initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.65, ease: EASE }}>
           <motion.div initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.15, ease: EASE }} className="h-px w-10 bg-gradient-to-r from-cyan-400 to-transparent origin-left" />
@@ -113,6 +116,8 @@ export default function About({ data = {} }) {
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
   );
 }

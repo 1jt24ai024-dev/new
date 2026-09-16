@@ -4,14 +4,7 @@ import useScrollAnimations from '../hooks/useScrollAnimations';
 import CustomCursor from '../components/CustomCursor';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
-import About from '../components/About';
-import Education from '../components/Education';
-import Experience from '../components/Experience';
-import Certifications from '../components/Certifications';
-import Projects from '../components/Projects';
-import Chronicles from '../components/Chronicles';
-import Contact from '../components/Contact';
-import GridMotion from '../components/GridMotion';
+import CinematicContent from '../components/CinematicContent';
 
 export default function Home() {
   const { content } = useContent();
@@ -127,13 +120,7 @@ export default function Home() {
         }}
       >
         <Hero data={content?.hero} />
-        {visibility.about && <About data={content?.about} />}
-        {visibility.education && <Education data={content?.education} />}
-        {visibility.experience && <Experience data={content?.experience} />}
-        {visibility.certifications && <Certifications data={content?.certifications} />}
-        {visibility.projects && <Projects data={content?.projects} />}
-        {visibility.chronicles && <Chronicles data={content?.chronicles} />}
-        <Contact data={content?.contact} heroSocials={content?.hero?.socials} />
+        <CinematicContent content={content} />
       </main>
     </div>
   );

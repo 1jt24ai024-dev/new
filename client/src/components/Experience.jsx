@@ -44,7 +44,7 @@ export default function Experience({ data }) {
     <section id="experience" ref={sectionRef} className="relative py-16 sm:py-24 px-5 sm:px-8 border-t border-white/[0.04]">
       <div className="max-w-7xl mx-auto">
         {/* Section Heading */}
-        <div className="section-heading mb-14 sm:mb-16">
+        <div className="section-heading mb-14 sm:mb-24">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -52,12 +52,12 @@ export default function Experience({ data }) {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="font-mono text-xs sm:text-sm tracking-[0.25em] text-slate-400 uppercase"
           >
-            WORK EXPERIENCE
+            EXPERIENCE // CHAPTERS
           </motion.h2>
         </div>
 
         {/* Editorial Experiences Flowing Seamlessly */}
-        <div className="scroll-stagger-grid divide-y divide-white/[0.06] border-y border-white/[0.06]">
+        <div className="flex flex-col gap-24 sm:gap-32">
           {items.map((item, idx) => {
             const isHovered = hoveredId === (item._id || idx);
             return (
@@ -69,18 +69,17 @@ export default function Experience({ data }) {
                 transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
                 onMouseEnter={() => setHoveredId(item._id || idx)}
                 onMouseLeave={() => setHoveredId(null)}
-                className={`experience-row experience-item py-10 sm:py-14 px-4 sm:px-8 -mx-4 sm:-mx-8 rounded-2xl transition-all duration-300 group cursor-default ${
-                  isHovered ? 'bg-white/[0.02] shadow-inner' : 'hover:bg-white/[0.01]'
-                }`}
+                className={`experience-row experience-item py-10 sm:py-14 px-4 sm:px-8 -mx-4 sm:-mx-8 rounded-3xl transition-all duration-300 group cursor-default border border-white/5 bg-white/[0.01] hover:bg-white/[0.03] hover:border-white/10`}
               >
                 <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-start">
                   {/* Left: Role, Company, Duration */}
-                  <div className="lg:col-span-5">
+                  <div className="lg:col-span-5 relative">
                     <motion.div
                       animate={{ x: isHovered ? 8 : 0 }}
                       transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
                       className="flex flex-col"
                     >
+                      <div className="font-mono text-[10px] text-cyan-400 mb-2 tracking-[0.2em]">CHAPTER {String(idx + 1).padStart(2, '0')}</div>
                       <div className="flex items-center gap-3">
                         {item.logo && (
                           <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-cyan-300/20 bg-white p-2 shadow-[0_0_20px_rgba(103,232,249,0.12)]">

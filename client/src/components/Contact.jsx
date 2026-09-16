@@ -56,7 +56,6 @@ export default function Contact({ data = {}, heroSocials = [] }) {
       </div>
       <div className="pointer-events-none absolute inset-0 z-[1] bg-[#050508]/35" aria-hidden="true" />
       <div className="relative z-10 max-w-7xl mx-auto">
-        {/* Section Identifier */}
         <div className="section-heading mb-14 sm:mb-16">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -65,7 +64,7 @@ export default function Contact({ data = {}, heroSocials = [] }) {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="font-mono text-xs sm:text-sm tracking-[0.25em] text-slate-400 uppercase"
           >
-            CONTACT
+            SCENE 07 · ENDING
           </motion.h2>
         </div>
 

@@ -14,8 +14,17 @@ export default function Chronicles({ data }) {
   const chronicles = data.items;
 
   return (
-    <section id="chronicles" className="relative py-20 sm:py-32 px-5 sm:px-8 border-t border-white/[0.04] w-full min-h-0 h-auto overflow-visible">
-      <div className="max-w-7xl mx-auto w-full">
+    <section id="chronicles" className="relative py-20 sm:py-32 px-5 sm:px-8 border-t border-white/[0.04] w-full min-h-0 h-auto overflow-hidden">
+      {/* Neural particle background effect */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-20" aria-hidden="true">
+         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(16,185,129,0.15)_0%,_transparent_70%)]" />
+         <svg className="absolute w-full h-full opacity-30" viewBox="0 0 100 100" preserveAspectRatio="none">
+           <path d="M0,50 Q25,25 50,50 T100,50" fill="none" stroke="#34d399" strokeWidth="0.5" className="neural-edge" />
+           <path d="M0,80 Q30,100 60,60 T100,20" fill="none" stroke="#67e8f9" strokeWidth="0.5" className="neural-edge" style={{ animationDelay: '1s' }}/>
+         </svg>
+      </div>
+
+      <div className="max-w-7xl mx-auto w-full relative z-10">
         {/* Section Heading */}
         <div className="section-heading mb-12 sm:mb-16 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>

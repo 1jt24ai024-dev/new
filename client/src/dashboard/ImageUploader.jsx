@@ -14,6 +14,14 @@ export default function ImageUploader({ label, value, onUploaded }) {
     setUploading(true);
     setError('');
     try {
+      if (localStorage.getItem('portfolio_admin_token') === 'local_admin_session') {
+        const reader = new FileReader();
+        reader.onload = () => onUploaded(reader.result);
+        reader.onerror = () => setError('Could not read image locally');
+        reader.readAsDataURL(file);
+        return;
+      }
+
       const formData = new FormData();
       formData.append('image', file);
       const res = await api.post('/upload', formData, {

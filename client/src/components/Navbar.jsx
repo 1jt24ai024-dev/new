@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
+import { motion, AnimatePresence, useSpring } from 'framer-motion';
 import { Menu, X, ArrowUpRight, Lock, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import useCinematicScroll from '../hooks/useCinematicScroll';
 
 const NAV_LINKS = [
   { id: 'home', label: 'HOME' },
@@ -16,26 +17,14 @@ const NAV_LINKS = [
 
 export default function Navbar({ visibility = {} }) {
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 });
+  const { activeScene, overallProgress } = useCinematicScroll();
+  const scaleX = useSpring(overallProgress, { stiffness: 120, damping: 30, restDelta: 0.001 });
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 30);
-
-      // Active section detection
-      const scrollPos = window.scrollY + 220;
-      for (let i = NAV_LINKS.length - 1; i >= 0; i--) {
-        const item = NAV_LINKS[i];
-        const el = document.getElementById(item.id);
-        if (el && el.offsetTop <= scrollPos) {
-          setActiveSection(item.id);
-          break;
-        }
-      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -92,7 +81,7 @@ export default function Navbar({ visibility = {} }) {
           {/* Desktop Navigation */}
           <nav className="navbar-desktop-nav hidden xl:flex items-center gap-1 rounded-full border border-white/[0.07] bg-white/[0.025] p-1.5 backdrop-blur-md">
             {links.map((link, idx) => {
-              const isActive = activeSection === link.id;
+              const isActive = activeScene === link.id;
               return (
                 <motion.button
                   key={link.id}
@@ -152,7 +141,7 @@ export default function Navbar({ visibility = {} }) {
             >
               <div className="flex flex-col gap-3">
                 {links.map((link, idx) => {
-                  const isActive = activeSection === link.id;
+                  const isActive = activeScene === link.id;
                   return (
                     <motion.button
                       key={link.id}

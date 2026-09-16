@@ -45,11 +45,13 @@ function MagneticButton({ children, as: Component = motion.button, onClick, clas
 export default function Hero({ data = {} }) {
   const containerRef = useRef(null);
 
-  // Scroll driven subtle fade and scale
+  // Scroll driven subtle fade and scale for cinematic scroll-out
   const { scrollY } = useScroll();
-  const heroOpacity = useTransform(scrollY, [0, 500], [1, 0]);
-  const heroScale = useTransform(scrollY, [0, 500], [1, 0.98]);
-  const heroTranslateY = useTransform(scrollY, [0, 500], [0, 50]);
+  const heroOpacity = useTransform(scrollY, [0, 800], [1, 0]);
+  const heroScale = useTransform(scrollY, [0, 800], [1, 1.05]);
+  const heroTranslateY = useTransform(scrollY, [0, 800], [0, -100]);
+  
+  const bgTranslateY = useTransform(scrollY, [0, 800], [0, 150]);
 
   // Mouse-tracking spotlight
   const rawMouseX = useMotionValue(50);
@@ -119,6 +121,9 @@ export default function Hero({ data = {} }) {
         {/* 5. Bottom fade */}
         <div className="absolute inset-x-0 bottom-0 h-52 bg-gradient-to-t from-[#090a0f] via-[#090a0f]/70 to-transparent z-[5]" />
       </div>
+
+      {/* Cinematic Film Grain Overlay */}
+      <div className="pointer-events-none absolute inset-0 z-50 opacity-[0.025] mix-blend-overlay bg-[url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')]" />
 
       <motion.div
         style={{

@@ -5,7 +5,7 @@ import { Shield, Key, ArrowLeft, AlertCircle, Check, Copy, RefreshCw, Lock } fro
 import { useAuth } from '../context/AuthContext';
 
 export default function Login() {
-  const { getAuthStatus, setupTotp, loginWithTotp, regenerateQr } = useAuth();
+  const { getAuthStatus, setupTotp, loginWithTotp, regenerateQr, loginLocally } = useAuth();
   const navigate = useNavigate();
 
   const [loadingStatus, setLoadingStatus] = useState(true);
@@ -42,7 +42,7 @@ export default function Login() {
   };
 
   const handleEnterLocal = () => {
-    localStorage.setItem('portfolio_admin_token', 'local_admin_session');
+    loginLocally();
     navigate('/dashboard');
   };
 

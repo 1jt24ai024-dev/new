@@ -39,6 +39,12 @@ export function AuthProvider({ children }) {
     setToken(null);
   };
 
+  const loginLocally = () => {
+    const localToken = 'local_admin_session';
+    localStorage.setItem('portfolio_admin_token', localToken);
+    setToken(localToken);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -48,6 +54,7 @@ export function AuthProvider({ children }) {
         setupTotp,
         loginWithTotp,
         regenerateQr,
+        loginLocally,
         logout,
       }}
     >

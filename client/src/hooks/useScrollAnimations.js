@@ -47,25 +47,25 @@ export default function useScrollAnimations() {
     gsap.ticker.add((time) => lenis.raf(time * 1000));
     gsap.ticker.lagSmoothing(0);
 
-    /* ─── 2. SECTION SCALE-IN REVEALS ─── */
-    const sections = document.querySelectorAll('main > section:not(#home)');
+    /* ─── 2. SCENE CINEMATIC TRANSITIONS ─── */
+    const sections = document.querySelectorAll('main > section:not(#home):not(#projects)');
     sections.forEach((section) => {
       gsap.fromTo(section, 
         { 
-          scale: 0.92, 
-          borderRadius: '2.5rem',
-          opacity: 0.3,
+          scale: 0.95, 
+          opacity: 0,
+          y: 60
         },
         {
           scale: 1,
-          borderRadius: '1.75rem',
           opacity: 1,
+          y: 0,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: section,
-            start: 'top 90%',
-            end: 'top 30%',
-            scrub: 0.8,
+            start: 'top 85%',
+            end: 'top 40%',
+            scrub: 1,
           },
         }
       );

@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const speakeasy = require('speakeasy');
 const QRCode = require('qrcode');
 const jwt = require('jsonwebtoken');
@@ -19,6 +20,10 @@ async function getOwner() {
 
 // GET /api/auth/status - check if TOTP is configured, return QR if first time
 router.get('/status', async (req, res) => {
+  if (mongoose.connection.readyState !== 1) {
+    return res.status(503).json({ message: 'Authentication database is unavailable' });
+  }
+
   try {
     const user = await getOwner();
 
