@@ -26,10 +26,11 @@ export default function Contact({ data = {}, heroSocials = [] }) {
 
   // Social links from Dashboard: use data.socials or heroSocials as added in dashboard
   const socials = (data.socials && data.socials.length > 0) ? data.socials : (heroSocials || []);
-  const hasImage = Boolean(data.image);
+  const contactImage = data.image || data.contactImage || '';
+  const hasImage = Boolean(contactImage);
 
   return (
-    <section id="contact" className="contact-arrival relative min-h-[600px] overflow-hidden pt-28 sm:pt-36 pb-16 sm:pb-20 px-5 sm:px-8 border-t border-white/[0.04]">
+    <section id="contact" className="contact-arrival relative overflow-hidden pt-28 sm:pt-36 pb-16 sm:pb-20 px-5 sm:px-8 border-t border-white/[0.04]">
       <div className="absolute inset-0" aria-hidden="true">
         <GradientWaves
           horizonColor="#5227FF"
@@ -141,7 +142,7 @@ export default function Contact({ data = {}, heroSocials = [] }) {
                 className="image-surface w-full max-w-lg aspect-[4/3] rounded-2xl overflow-hidden shadow-xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.6)] transition-all duration-500"
               >
                 <div className="w-full h-full rounded-xl overflow-hidden">
-                  <img src={data.image} alt="Contact" className="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
+                  <img src={contactImage} alt="Contact" className="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
                 </div>
               </motion.div>
             ) : (

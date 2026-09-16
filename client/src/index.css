@@ -750,7 +750,7 @@ body.rocket-launching *:not(.rocket-launch-scene):not(.rocket-launch-scene *) {
 
 #grid-motion { perspective: 1200px; }
 
-.grid-motion-section { min-height: 155vh; padding: .5rem; background: #060710 !important; }
+.grid-motion-section { padding: .5rem; background: #060710 !important; }
 .grid-motion-shell { width: 100%; max-width: none; height: auto; min-height: 0; margin: 0; overflow: visible; border-radius: 1.25rem; background: #060710; }
 .grid-motion-section .grid-motion-shell { position: sticky; top: 11vh; }
 .grid-motion-intro { position: relative; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; overflow: hidden; }
@@ -792,8 +792,6 @@ body.rocket-launching *:not(.rocket-launch-scene):not(.rocket-launch-scene *) {
 }
 .contact-arrival {
   z-index: 10;
-  margin-top: -18vh !important;
-  padding-top: calc(7rem + 18vh) !important;
   border-top-color: rgba(103, 232, 249, .14) !important;
   background: radial-gradient(70% 30% at 50% 0%, rgba(46, 211, 255, .07), transparent 70%), #050508 !important;
 }
@@ -885,7 +883,7 @@ body.rocket-launching *:not(.rocket-launch-scene):not(.rocket-launch-scene *) {
     min-height: calc(100vh - 1rem);
     margin-top: .5rem;
   }
-  .grid-motion-section { min-height: 105vh; padding: .35rem; }
+  .grid-motion-section { padding: .35rem; }
   .grid-motion-shell { height: auto; min-height: 0; overflow: visible; border-radius: .9rem; }
   .grid-motion-section .grid-motion-shell { top: 16vh; }
   .grid-motion-container { gap: .55rem; width: 180vw; height: 155vh; transform: rotate(-6deg); }

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { useContent } from '../context/ContentContext';
 import useScrollAnimations from '../hooks/useScrollAnimations';
 import CustomCursor from '../components/CustomCursor';
@@ -9,6 +9,16 @@ import CinematicContent from '../components/CinematicContent';
 export default function Home() {
   const { content } = useContent();
   useScrollAnimations();
+
+  useLayoutEffect(() => {
+    const previousRestoration = window.history.scrollRestoration;
+    window.history.scrollRestoration = 'manual';
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+
+    return () => {
+      window.history.scrollRestoration = previousRestoration;
+    };
+  }, []);
 
   useEffect(() => {
     const sections = [...document.querySelectorAll('main > section')];

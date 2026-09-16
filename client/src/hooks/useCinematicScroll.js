@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-const SCENE_IDS = ['home', 'about', 'education', 'experience', 'projects', 'chronicles', 'contact'];
+const SCENE_IDS = ['home', 'about', 'education', 'experience', 'certifications', 'projects', 'chronicles', 'contact'];
 
 /**
  * useCinematicScroll
@@ -27,7 +27,8 @@ export function useCinematicScroll() {
       SCENE_IDS.forEach((id, idx) => {
         const el = document.getElementById(id);
         if (!el) return;
-        if (el.offsetTop <= viewportMid) {
+        const sectionTop = el.getBoundingClientRect().top + scrollY;
+        if (sectionTop <= viewportMid) {
           found = id;
           foundIdx = idx;
         }
