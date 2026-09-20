@@ -97,6 +97,11 @@ const SiteContentSchema = new mongoose.Schema({
     visible: { type: Boolean, default: true },
     items: [GridMotionItemSchema],
   },
+  banner: {
+    heading: { type: String, default: 'Curiosity is my dataset; experimentation is my training loop.' },
+    text: { type: String, default: '' },
+    image: { type: String, default: '' },
+  },
   contact: {
     heading: { type: String, default: "Let's Talk" },
     image: { type: String, default: '' },

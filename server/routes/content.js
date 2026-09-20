@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
 // PATCH /api/content/:section - PROTECTED. Updates one top-level section
 // e.g. /api/content/hero  body: { name, tagline, image, socials }
 router.patch('/:section', auth, async (req, res) => {
-  const allowed = ['hero', 'about', 'education', 'experience', 'certifications', 'projects', 'chronicles', 'gridMotion', 'contact'];
+  const allowed = ['hero', 'about', 'education', 'experience', 'certifications', 'projects', 'chronicles', 'gridMotion', 'banner', 'contact'];
   const { section } = req.params;
   if (!allowed.includes(section)) return res.status(400).json({ message: 'Unknown section' });
 

@@ -6,6 +6,7 @@ import Projects from './Projects';
 import Certifications from './Certifications';
 import Chronicles from './Chronicles';
 import Contact from './Contact';
+import Banner from './Banner';
 import useCinematicScroll from '../hooks/useCinematicScroll';
 import SceneProgress from './SceneProgress';
 
@@ -32,7 +33,10 @@ export default function CinematicContent({ content }) {
       {/* 05. RESEARCH / EXPERIMENTS */}
       <Chronicles data={content?.chronicles} />
       
-      {/* 06. CONTACT / ENDING */}
+      {/* 06. SIGNAL BANNER */}
+      <Banner data={content?.banner} />
+
+      {/* 07. CONTACT / ENDING */}
       <Contact data={content?.contact} heroSocials={content?.hero?.socials} />
     </div>
   );

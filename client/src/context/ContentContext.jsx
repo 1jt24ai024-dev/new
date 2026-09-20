@@ -10,6 +10,7 @@ const EMPTY_CONTENT = {
   projects: { visible: true, items: [] },
   chronicles: { visible: true, items: [] },
   gridMotion: { visible: true, items: [] },
+  banner: { heading: '', text: '', image: '' },
   contact: { heading: '', email: '', phone: '', image: '', socials: [] },
 };
 

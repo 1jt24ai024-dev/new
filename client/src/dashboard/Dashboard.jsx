@@ -17,6 +17,7 @@ import {
   FolderGit2,
   BookOpen,
   Images,
+  PanelTop,
   Mail,
   MessageSquare,
   LogOut,
@@ -33,6 +34,7 @@ const TABS = [
   { id: 'Projects', label: 'Projects', icon: FolderGit2 },
   { id: 'Chronicles', label: 'Chronicles', icon: BookOpen },
   { id: 'Grid Motion', label: 'Grid Motion', icon: Images },
+  { id: 'Banner', label: 'Banner', icon: PanelTop },
   { id: 'Contact', label: 'Contact', icon: Mail },
   { id: 'Messages', label: 'Messages', icon: MessageSquare },
 ];
@@ -72,6 +74,7 @@ export default function Dashboard() {
         projects: { visible: true, items: [] },
         chronicles: { visible: true, items: [] },
         gridMotion: { visible: true, items: [] },
+        banner: { heading: '', text: '', image: '' },
         contact: { heading: '', email: '', phone: '', image: '', socials: [] },
       });
     }
@@ -358,6 +361,9 @@ export default function Dashboard() {
             </div>
           </>
         )}
+        {tab === 'Banner' && (
+          <BannerForm data={content.banner} onSave={(d) => saveSection('banner', d)} saving={saving} />
+        )}
         {tab === 'Contact' && (
           <ContactForm data={content.contact} onSave={(d) => saveSection('contact', d)} saving={saving} />
         )}
@@ -416,6 +422,23 @@ function ContactForm({ data, onSave, saving }) {
       <div className="pt-2">
         <SaveButton onClick={() => onSave(form)} disabled={saving}>
           {saving ? 'SAVING…' : 'SAVE CONTACT'}
+        </SaveButton>
+      </div>
+    </div>
+  );
+}
+
+function BannerForm({ data, onSave, saving }) {
+  const [form, setForm] = useState(data || {});
+  useEffect(() => setForm(data || {}), [data]);
+  return (
+    <div className="glass-panel rounded-2xl p-6 sm:p-8 flex flex-col gap-5 max-w-xl border border-white/[0.08]">
+      <ImageUploader label="Banner Image (optional)" value={form.image} onUploaded={(url) => setForm({ ...form, image: url })} />
+      <TextField label="Heading" value={form.heading || ''} onChange={(e) => setForm({ ...form, heading: e.target.value })} />
+      <TextArea label="Supporting Text (optional)" rows={4} value={form.text || ''} onChange={(e) => setForm({ ...form, text: e.target.value })} />
+      <div className="pt-2">
+        <SaveButton onClick={() => onSave(form)} disabled={saving}>
+          {saving ? 'SAVING…' : 'SAVE BANNER'}
         </SaveButton>
       </div>
     </div>
