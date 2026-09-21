@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { BookOpen, X } from 'lucide-react';
+import { BookOpen, X, Share2, Check } from 'lucide-react';
 import ChromaGrid from './ChromaGrid';
 
 function AutoImageSlideshow({ images, alt }) {
@@ -21,6 +21,7 @@ function AutoImageSlideshow({ images, alt }) {
 
 export default function Chronicles({ data }) {
   const [selectedNote, setSelectedNote] = useState(null);
+  const [shareCopied, setShareCopied] = useState(false);
 
   // If no items or section is hidden, return null
   if (!data || data.visible === false || !data.items || data.items.length === 0) {
@@ -28,6 +29,47 @@ export default function Chronicles({ data }) {
   }
 
   const chronicles = data.items;
+
+  useEffect(() => {
+    const eventId = new URLSearchParams(window.location.search).get('event');
+    if (eventId) {
+      const matchingNote = chronicles.find((note) => String(note._id) === eventId);
+      if (matchingNote) setSelectedNote(matchingNote);
+    }
+  }, [chronicles]);
+
+  const closeNote = () => {
+    setSelectedNote(null);
+    setShareCopied(false);
+    const url = new URL(window.location.href);
+    url.searchParams.delete('event');
+    window.history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`);
+  };
+
+  const openNote = (note) => {
+    setSelectedNote(note);
+    setShareCopied(false);
+    const url = new URL(window.location.href);
+    url.searchParams.set('event', note._id);
+    window.history.pushState({}, '', `${url.pathname}${url.search}${url.hash}`);
+  };
+
+  const shareNote = async () => {
+    const url = new URL(window.location.href);
+    url.searchParams.set('event', selectedNote._id);
+    const shareData = { title: selectedNote.title || 'Event', text: selectedNote.description || '', url: url.toString() };
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(url.toString());
+        setShareCopied(true);
+        setTimeout(() => setShareCopied(false), 2200);
+      }
+    } catch (error) {
+      if (error.name !== 'AbortError') setShareCopied(false);
+    }
+  };
 
   return (
     <section id="chronicles" className="relative py-20 sm:py-32 px-5 sm:px-8 border-t border-white/[0.04] w-full min-h-0 h-auto overflow-hidden">
@@ -63,7 +105,7 @@ export default function Chronicles({ data }) {
         </div>
 
         {/* Redesigned Dual Interactive Showcase Layout */}
-        <ChromaGrid items={chronicles} onSelect={setSelectedNote} />
+        <ChromaGrid items={chronicles} onSelect={openNote} />
       </div>
 
       {/* Note Reader Modal */}
@@ -74,7 +116,7 @@ export default function Chronicles({ data }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[100] bg-[#050508]/95 backdrop-blur-xl flex items-center justify-center p-4 sm:p-8"
-            onClick={() => setSelectedNote(null)}
+            onClick={closeNote}
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.96, y: 20 }}
@@ -85,7 +127,7 @@ export default function Chronicles({ data }) {
               className="relative w-full max-w-3xl max-h-[88vh] overflow-y-auto glass-panel rounded-2xl border border-white/[0.12] p-6 sm:p-10 shadow-2xl"
             >
               <button
-                onClick={() => setSelectedNote(null)}
+                onClick={closeNote}
                 className="absolute top-6 right-6 p-2 rounded-full border border-white/10 bg-white/[0.04] text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
                 aria-label="Close Note"
               >
@@ -106,6 +148,15 @@ export default function Chronicles({ data }) {
               <h3 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight mb-6">
                 {selectedNote.title}
               </h3>
+
+              <button
+                type="button"
+                onClick={shareNote}
+                className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-300/30 bg-cyan-300/10 px-4 py-2 text-xs font-mono tracking-wider text-cyan-200 hover:bg-cyan-300/20 transition-colors"
+              >
+                {shareCopied ? <Check size={14} /> : <Share2 size={14} />}
+                {shareCopied ? 'LINK COPIED' : 'SHARE EVENT'}
+              </button>
 
               {(selectedNote.images?.length || selectedNote.image) && (
                 <div className="w-full max-h-[420px] rounded-xl overflow-hidden border border-white/10 mb-6 bg-black/60 flex items-center justify-center p-2">
