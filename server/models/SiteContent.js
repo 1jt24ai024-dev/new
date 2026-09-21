@@ -51,6 +51,7 @@ const ChronicleSchema = new mongoose.Schema({
   date: String,
   location: String,
   image: String,
+  images: [String],
   order: { type: Number, default: 0 },
 });
 

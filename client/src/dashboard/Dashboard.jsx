@@ -331,7 +331,7 @@ export default function Dashboard() {
                   { name: 'date', label: 'Date / Period', type: 'text' },
                   { name: 'location', label: 'Domain Category (e.g. SYSTEMS ARCHITECTURE)', type: 'text' },
                   { name: 'description', label: 'Synthesis / Detailed Note', type: 'textarea' },
-                  { name: 'image', label: 'Visual Preview (Optional)', type: 'image' },
+                  { name: 'images', label: 'Event Images (Optional)', type: 'images' },
                 ]}
               />
             </div>
@@ -433,7 +433,7 @@ function BannerForm({ data, onSave, saving }) {
   useEffect(() => setForm(data || {}), [data]);
   return (
     <div className="glass-panel rounded-2xl p-6 sm:p-8 flex flex-col gap-5 max-w-xl border border-white/[0.08]">
-      <ImageUploader label="Banner Image (optional)" value={form.image} onUploaded={(url) => setForm({ ...form, image: url })} />
+      <ImageUploader label="Banner Image (optional)" value={form.image} uploadType="banner" maxSizeMb={20} onUploaded={(url) => setForm({ ...form, image: url })} />
       <TextField label="Heading" value={form.heading || ''} onChange={(e) => setForm({ ...form, heading: e.target.value })} />
       <TextArea label="Supporting Text (optional)" rows={4} value={form.text || ''} onChange={(e) => setForm({ ...form, text: e.target.value })} />
       <div className="pt-2">

@@ -12,7 +12,7 @@ export default function ItemListEditor({ section, title, items = [], fields, onC
   const [editing, setEditing] = useState(null);
   const [saving, setSaving] = useState(false);
 
-  const blankItem = () => Object.fromEntries(fields.map((f) => [f.name, f.type === 'tags' ? [] : '']));
+  const blankItem = () => Object.fromEntries(fields.map((f) => [f.name, f.type === 'tags' || f.type === 'images' ? [] : '']));
 
   const openNew = () => setEditing(blankItem());
   const openEdit = (item) => setEditing({ ...item });
@@ -85,9 +85,9 @@ export default function ItemListEditor({ section, title, items = [], fields, onC
             className="flex items-center justify-between border border-white/[0.06] bg-white/[0.02] rounded-xl px-4 py-3.5 hover:border-white/[0.15] transition-colors"
           >
             <div className="flex items-center gap-3.5 min-w-0">
-              {(item.image || item.logo) && (
+              {(item.image || item.logo || item.images?.[0]) && (
                 <img
-                  src={item.image || item.logo}
+                  src={item.image || item.logo || item.images[0]}
                   alt=""
                   className="w-10 h-10 rounded-lg object-cover border border-white/10 flex-shrink-0"
                 />
@@ -128,12 +128,13 @@ export default function ItemListEditor({ section, title, items = [], fields, onC
           </div>
 
           {fields.map((f) => {
-            if (f.type === 'image') {
+            if (f.type === 'image' || f.type === 'images') {
               return (
                 <ImageUploader
                   key={f.name}
                   label={f.label}
                   value={editing[f.name]}
+                  multiple={f.type === 'images'}
                   onUploaded={(url) => setField(f.name, url)}
                 />
               );

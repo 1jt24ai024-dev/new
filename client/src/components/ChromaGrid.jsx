@@ -1,6 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Image as ImageIcon, MapPin, Calendar } from 'lucide-react';
+
+function AutoImageSlideshow({ images, alt }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    if (images.length < 2) return undefined;
+    const interval = setInterval(() => {
+      setActiveIndex((index) => (index + 1) % images.length);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  return (
+    <img
+      src={images[activeIndex]}
+      alt={alt}
+      className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-105"
+      loading="lazy"
+    />
+  );
+}
 
 export default function ChromaGrid({ items = [], onSelect }) {
   const [spotlight, setSpotlight] = useState({ x: 50, y: 50 });
@@ -31,12 +52,10 @@ export default function ChromaGrid({ items = [], onSelect }) {
         >
           {/* Image Container — Dynamic Aspect Ratio Frame (16:10) without clipping */}
           <div className="image-surface relative w-full aspect-[16/10] overflow-hidden rounded-xl border border-white/10 bg-slate-950/80 mb-4">
-            {item.image ? (
-              <img
-                src={item.image}
+            {(item.images?.length ? item.images : item.image ? [item.image] : []).length > 0 ? (
+              <AutoImageSlideshow
+                images={item.images?.length ? item.images : [item.image]}
                 alt={item.title || 'Chronicle visual'}
-                className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-105"
-                loading="lazy"
               />
             ) : (
               <div className="flex h-full items-center justify-center bg-gradient-to-br from-cyan-500/10 via-blue-500/5 to-fuchsia-500/10">

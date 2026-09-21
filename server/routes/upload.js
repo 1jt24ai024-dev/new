@@ -4,9 +4,11 @@ const { storage } = require('../config/cloudinary');
 const auth = require('../middleware/auth');
 
 const router = express.Router();
-const upload = multer({ storage, limits: { fileSize: 8 * 1024 * 1024 } }); // 8MB cap - free tier friendly
+const defaultUpload = multer({ storage, limits: { fileSize: 8 * 1024 * 1024 } });
+const bannerUpload = multer({ storage, limits: { fileSize: 20 * 1024 * 1024 } });
 
 router.post('/', auth, (req, res, next) => {
+  const upload = req.query.type === 'banner' ? bannerUpload : defaultUpload;
   upload.single('image')(req, res, (err) => {
     if (err) {
       if (err instanceof multer.MulterError) {

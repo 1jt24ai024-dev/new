@@ -1,7 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, X } from 'lucide-react';
 import ChromaGrid from './ChromaGrid';
+
+function AutoImageSlideshow({ images, alt }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    if (images.length < 2) return undefined;
+    const interval = setInterval(() => {
+      setActiveIndex((index) => (index + 1) % images.length);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  return (
+    <img src={images[activeIndex]} alt={alt} className="w-full h-full max-h-[400px] object-contain rounded-lg" />
+  );
+}
 
 export default function Chronicles({ data }) {
   const [selectedNote, setSelectedNote] = useState(null);
@@ -91,9 +107,12 @@ export default function Chronicles({ data }) {
                 {selectedNote.title}
               </h3>
 
-              {selectedNote.image && (
+              {(selectedNote.images?.length || selectedNote.image) && (
                 <div className="w-full max-h-[420px] rounded-xl overflow-hidden border border-white/10 mb-6 bg-black/60 flex items-center justify-center p-2">
-                  <img src={selectedNote.image} alt={selectedNote.title} className="w-full h-full max-h-[400px] object-contain rounded-lg" />
+                  <AutoImageSlideshow
+                    images={selectedNote.images?.length ? selectedNote.images : [selectedNote.image]}
+                    alt={selectedNote.title}
+                  />
                 </div>
               )}
 
